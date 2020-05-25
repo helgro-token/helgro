@@ -1,6 +1,3 @@
-# helgro
-it`s all about token
-
 # Scripts and materials for HELGRO token  
 TRC-20 contract, scripts
 
