@@ -1,13 +1,13 @@
 //------------------------------------------------------------------------------
-//                     HELPRO TOKEN TRC20 CONTRACT
+//                     HELGRO TOKEN TRC20 CONTRACT
 //------------------------------------------------------------------------------
 //
-// Symbol              : HPRO
-// Name                : HelPro
+// Symbol              : HGRO
+// Name                : HelGro
 // Solidity version    : 0.6.6
-// Last edited         : 21.05.2020 
+// Last edited         : 01.06.2020 
 //
-// (C) 2020 HelPro Team, KVV
+// (C) 2020 HelGro Team, KVV
 //------------------------------------------------------------------------------
 
 pragma solidity ^0.6.6;
@@ -18,7 +18,7 @@ import "TRC20.trc";
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
-contract HelproTRC20 is TRC20,AccessControl,OwnableToken {
+contract HelGroTRC20 is TRC20,AccessControl,OwnableToken {
     using SafeMath for uint256;
 	
     string public name;
@@ -32,15 +32,15 @@ contract HelproTRC20 is TRC20,AccessControl,OwnableToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Burn(address indexed from, uint256 value);
 
-    function HelproTRC20(
+    function HelGroTRC20(
         uint256 initialSupply,
         string tokenName,
         string tokenSymbol,
 		uint8 private decimals,
 		string private version
     ) public {
-        tokenName             = "HelPro";
-        tokenSymbol           = "HPRO";
+        tokenName             = "HelGro";
+        tokenSymbol           = "HGRO";
         decimals              = 18;
 		version               = "1.0.0";
 		totalSupply           = 500000000000000000000000000000;    
@@ -108,8 +108,13 @@ contract HelproTRC20 is TRC20,AccessControl,OwnableToken {
         emit Burn(_from, _value);
         return true;
     }
-	
-	
+		
+	function bulkTransfer(address[] calldata _receivers, uint256[] calldata _amounts) external {
+		require(_receivers.length == _amounts.length);
+		for (uint256 i = 0; i < _receivers.length; i++) {
+			_transfer(msg.sender, _receivers[i], _amounts[i]);
+		}
+	}
 	
     function MakeWorldBigger(uint256 _time) public virtual returns (bool) {
         _MakeWorldBigger(_time);
